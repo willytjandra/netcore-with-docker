@@ -1,3 +1,8 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using HelloWorld.Api.Filters;
+using HelloWorld.Api.Models;
+using HelloWorld.Api.Models.Validators;
 using HelloWorld.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,7 +32,15 @@ namespace HelloWorld.Api
                 options.UseSqlServer(Configuration.GetConnectionString("HelloWorldDatabase"));
             });
 
-            services.AddControllers();
+            services
+                .AddControllers(options =>
+                {
+                    options.Filters.Add<ValidationActionFilter>();
+                })
+                .AddFluentValidation();
+
+            services.AddTransient<IValidator<CreateProductRequest>, CreateProductValidator>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "HelloWorld.Api", Version = "v1" });
