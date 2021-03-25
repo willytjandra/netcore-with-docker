@@ -3,10 +3,33 @@ version: '3.9'
 services:
   seq:
     image: datalust/seq:latest
-    container_name: seq2
+    container_name: hello-world-seq
     ports:
-      - 5341:80
+      - 8041:80
     environment:
       - ACCEPT_EULA=Y
 
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: hello-world-db-server
+    ports:
+      - 1438:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=S3cr3t!!
+  
+  api:
+    container_name: hello-world-api
+    build:
+      context: .
+      dockerfile: "src\\HelloWorld.Api\\Dockerfile"
+    ports:
+      - 5000:80
+      - 5001:443
+    environment:
+      - "ConnectionStrings:HelloWorldDatabase=Server=db;Database=HelloWorldDB;User=SA;Password=S3cr3t!!" 
+      - "Serilog:WriteTo:0:Args:serverUrl=http://seq" 
+    depends_on:
+      - seq
+      - db
 
