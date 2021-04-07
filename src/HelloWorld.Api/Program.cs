@@ -28,7 +28,7 @@ namespace HelloWorld.Api
                 Log.Information("Starting Host");
                 CreateHostBuilder(args)
                     .Build()
-                    .DatabaseUpdate()
+                    //.DatabaseUpdate()
                     .Run();
                 return 0;
             }

@@ -13,7 +13,6 @@ FROM mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
-#ENV ASPNETCORE_URLS=http://*:5000
 
 COPY --from=publish /src/out .
 
