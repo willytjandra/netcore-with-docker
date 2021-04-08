@@ -10,6 +10,7 @@ Learning how to run .Net Core Web API within Docker container.
     - [Introduction](#introduction)
     - [Contents](#contents)
     - [Getting Started](#getting-started)
+    - [How to Contribute](#how-to-contribute)
 
 ## Getting Started
 
@@ -21,4 +22,7 @@ docker-compose up
 
 Open your browser and navigate to [`http://localhost:5000/swagger/index.html`](http://localhost:5000/swagger/index.html)
 
+## How to Contribute
+
+First, setup your local development by running `Setup-Dev.ps1` script.
 
