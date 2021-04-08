@@ -54,14 +54,16 @@ namespace HelloWorld.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            else
+            {
+                app.UseHttpsRedirection();
+                app.UseHsts();
+            }
 
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "HelloWorld.Api v1"));
 
             app.UseSerilogRequestLogging();
-
-            app.UseHttpsRedirection();
 
             app.UseRouting();
 

@@ -26,9 +26,15 @@ services:
     ports:
       - 5000:80
       - 5001:443
-    environment:
-      - "ConnectionStrings__HelloWorldDatabase=Server=db;Database=HelloWorldDB;User=SA;Password=S3cr3t!!" 
-      - "Serilog__WriteTo__0__Args__serverUrl=http://seq:5341" 
+    environment: 
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=S3cr3t!!
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/HelloWorld.pfx
+      - ASPNETCORE_HTTPS_PORT=5001
+      - "ConnectionStrings__HelloWorldDatabase=Server=db;Database=HelloWorldDB;User=SA;Password=S3cr3t!!"
+      - "Serilog__WriteTo__0__Args__serverUrl=http://seq:5341"
+    volumes:
+      - ~/.aspnet/https:/https:ro
     depends_on:
       - seq
       - db
