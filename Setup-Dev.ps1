@@ -6,7 +6,7 @@ Set-Location $PSScriptRoot
 
 Clear-Host
 
-Write-Host "`n`n------------------------------------------------ PREREQUISITES ------------------------------------------------`n" -ForegroundColor Cyan
+Write-Host "`n`n PREREQUISITES `n" -ForegroundColor Cyan
 
 if (-not (Get-Command "dotnet" -ErrorAction SilentlyContinue)) {
     Write-Error "Dotnet CLI is not installed. Please download and install it. Stopping script."
@@ -21,7 +21,7 @@ else {
     Write-Error ".Net Core 5.0 is not installed. Please download and install it. Stopping script."
 }
 
-Write-Host "`n`n------------------------------------------------ DATABASE ------------------------------------------------`n" -ForegroundColor Cyan
+Write-Host "`n`n DATABASE `n" -ForegroundColor Cyan
 
 Write-Host "Restoring EntityFramework Core tools" -ForegroundColor Magenta
 
@@ -44,7 +44,7 @@ Pop-Location
 
 Write-Host "Database schema successfully created / updated" -ForegroundColor Green
 
-Write-Host "`n`n------------------------------------------------ PACKAGES ------------------------------------------------`n" -ForegroundColor Cyan
+Write-Host "`n`n PACKAGES `n" -ForegroundColor Cyan
 
 Write-Host "Installing NuGet packages" -ForegroundColor Magenta
 

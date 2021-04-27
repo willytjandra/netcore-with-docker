@@ -4,6 +4,7 @@ using HelloWorld.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 
@@ -28,7 +29,7 @@ namespace HelloWorld.Api
                 Log.Information("Starting Host");
                 CreateHostBuilder(args)
                     .Build()
-                    //.DatabaseUpdate()
+                    .DatabaseUpdate()
                     .Run();
                 return 0;
             }
@@ -63,8 +64,11 @@ namespace HelloWorld.Api
     {
         public static IHost DatabaseUpdate(this IHost host)
         {
-            var dbContext = (HelloWorldDbContext) host.Services.GetService(typeof(HelloWorldDbContext));
+            using var scope = host.Services.CreateScope();
+
+            var dbContext = scope.ServiceProvider.GetRequiredService<HelloWorldDbContext>();
             dbContext.Database.Migrate();
+
             return host;
         }
     }
